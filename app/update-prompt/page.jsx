@@ -17,37 +17,39 @@ const EditPrompt = () => {
   useEffect(() => {
     const getPromptDetails = async () => {
       const response = await fetch(`/api/prompt/${promptId}`);
-      const data = response.json();
+      const data = await response.json();
 
       setPost({
         prompt: data.prompt,
         tag: data.tag,
       });
+
+      console.log(data);
     };
 
     if (promptId) getPromptDetails();
   }, [promptId]);
 
-  const editPrompt = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
+  //   const editPrompt = async (e) => {
+  //     e.preventDefault();
+  //     setSubmitting(true);
 
-    try {
-      const response = await fetch(`/api/prompt/${promptId}`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          prompt: post.prompt,
-          tag: post.tag,
-        }),
-      });
+  //     try {
+  //       const response = await fetch(`/api/prompt/${promptId}`, {
+  //         method: "PATCH",
+  //         body: JSON.stringify({
+  //           prompt: post.prompt,
+  //           tag: post.tag,
+  //         }),
+  //       });
 
-      if (response.ok) {
-        router.push("/");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //       if (response.ok) {
+  //         router.push("/");
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
   return (
     <div>
@@ -56,7 +58,7 @@ const EditPrompt = () => {
         post={post}
         setPost={setPost}
         submitting={submitting}
-        handleSubmit={editPrompt}
+        handleSubmit={() => {}}
       />
     </div>
   );
